@@ -4,6 +4,7 @@ const refs = {
 };
 let timerId = null;
 let buttonDisabled = 'disabled';
+
 refs.buttonStart.addEventListener('click', onChangeColor);
 refs.buttonStop.addEventListener('click', onStopChangeColor);
 
