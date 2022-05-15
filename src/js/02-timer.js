@@ -11,7 +11,7 @@ const refs = {
   minutes: document.querySelector('.timer [data-minutes]'),
   seconds: document.querySelector('.timer [data-seconds]'),
 };
-let leftTime = 5454254522;
+let selectedTime = 0;
 refs.buttonStart.disabled = true;
 
 const options = {
@@ -19,7 +19,6 @@ const options = {
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
-  leftTime: 0,
   onClose(selectedDates) {
     if (selectedDates[0].getTime() < options.defaultDate.getTime()) {
       //window.alert('Please choose a date in the future');
@@ -27,14 +26,14 @@ const options = {
       return;
     } else {
       refs.buttonStart.disabled = false;
-      this.leftTime = selectedDates[0].getTime() - options.defaultDate.getTime();
+      selectedTime = selectedDates[0] /*.getTime()  - options.defaultDate.getTime()*/;
       console.log(selectedDates[0]);
     }
-    return this.leftTime;
+    //return leftTime;
   },
 };
 flatpickr(refs.dateStart, options); //to create flatpickr instance
-//-------------------------------------------------------------------
+//----------------------Styles Timer---------------------------------------------
 refs.timer.style.display = 'flex';
 refs.timer.style.marginTop = '20px';
 [...refs.timer.children].map(child => {
@@ -50,11 +49,15 @@ refs.buttonStart.addEventListener('click', onTimer);
 //---------------------------------------------------------------------
 function onTimer() {
   setInterval(() => {
-    const { days, hours, minutes, seconds } = convertMs(leftTime);
-    refs.days.textContent = pad(days);
-    refs.hours.textContent = pad(hours);
-    refs.minutes.textContent = pad(minutes);
-    refs.seconds.textContent = pad(seconds);
+    let currentTime = new Date();
+    let leftTime = selectedTime.getTime() - currentTime.getTime();
+    if (leftTime >= 0) {
+      const { days, hours, minutes, seconds } = convertMs(leftTime);
+      refs.days.textContent = pad(days);
+      refs.hours.textContent = pad(hours);
+      refs.minutes.textContent = pad(minutes);
+      refs.seconds.textContent = pad(seconds);
+    }
   }, 1000);
 }
 
