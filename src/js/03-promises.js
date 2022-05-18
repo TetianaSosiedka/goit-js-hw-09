@@ -1,3 +1,5 @@
+import Notiflix from 'notiflix';
+
 const refs = {
   form: document.querySelector('.form'),
   delay: document.querySelector('.form [name = "delay"]'),
@@ -19,10 +21,10 @@ refs.form.addEventListener('submit', event => {
   arrPromis.map(promis => {
     promis
       .then(({ position, delay }) => {
-        console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
+        Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
       })
       .catch(({ position, delay }) => {
-        console.log(`❌ Rejected promise ${position} in ${delay}ms`);
+        Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
       });
   });
 });

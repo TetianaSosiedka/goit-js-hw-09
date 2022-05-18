@@ -29,7 +29,6 @@ const options = {
       selectedTime = selectedDates[0] /*.getTime()  - options.defaultDate.getTime()*/;
       console.log(selectedDates[0]);
     }
-    //return leftTime;
   },
 };
 flatpickr(refs.dateStart, options); //to create flatpickr instance
